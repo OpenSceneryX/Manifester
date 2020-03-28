@@ -8,31 +8,40 @@ Protected Class FolderManifest
 
 	#tag Method, Flags = &h21
 		Private Sub doGatherManifestFromFolderItem(containingFolderItem as FolderItem)
-		  dim i as Integer
-		  dim count as Integer = containingFolderItem.Count
-		  dim md5 as MD5Digest = new MD5Digest()
+		  Dim i As Integer
+		  Dim count As Integer = containingFolderItem.Count
+		  Dim md5 As MD5Digest = New MD5Digest
 		  
-		  for i = count downto 1
-		    dim folderItem as FolderItem = containingFolderItem.TrueItem(i)
+		  For i = count DownTo 1
+		    App.YieldToNextThread
 		    
-		    if folderItem <> nil then
+		    Dim folderItem As FolderItem = containingFolderItem.TrueItem(i)
+		    
+		    If folderItem <> Nil Then
 		      // Ignore any files or folders starting '.'
-		      if (folderItem.name.left(1) = ".") then continue
+		      If (folderItem.name.Left(1) = ".") Then Continue
 		      
-		      if folderItem.Directory then
+		      If folderItem.Directory Then
 		        doGatherManifestFromFolderItem(folderItem)
-		      else
+		      Else
 		        // Gather the information from the file
-		        md5.clear()
+		        md5.clear
 		        md5.process(folderItem.OpenAsTextFile.ReadAll)
-		        dim fileInformation as Dictionary = new Dictionary()
+		        Dim fileInformation As Dictionary = New Dictionary
 		        fileInformation.value("size") = folderItem.Length
 		        fileInformation.value("digest") = binToHex(md5.value, "")
-		        dim relativePath as String = folderItem.absolutePath
-		        relativePath = relativePath.mid(pRootFolderItem.absolutePath.len)
+		        
+		        Dim rootPath As String = pRootFolderItem.nativePath
+		        If (rootPath.Right(1) <> App.kPathSeparator) Then
+		          rootPath = rootPath + App.kPathSeparator
+		        End If
+		        
+		        Dim relativePath As String = folderItem.nativePath
+		        
+		        relativePath = relativePath.Mid(rootPath.Len)
 		        pManifest.Value(normaliseFilePath(relativePath)) = fileInformation
-		      end if
-		    end if
+		      End If
+		    End If
 		  next
 		End Sub
 	#tag EndMethod
@@ -138,7 +147,9 @@ Protected Class FolderManifest
 			Name="Name"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Index"
@@ -146,12 +157,15 @@ Protected Class FolderManifest
 			Group="ID"
 			InitialValue="-2147483648"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Super"
 			Visible=true
 			Group="ID"
+			InitialValue=""
 			Type="String"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Left"
@@ -159,6 +173,7 @@ Protected Class FolderManifest
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
 			Name="Top"
@@ -166,6 +181,7 @@ Protected Class FolderManifest
 			Group="Position"
 			InitialValue="0"
 			Type="Integer"
+			EditorType=""
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

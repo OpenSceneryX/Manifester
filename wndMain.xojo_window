@@ -3,7 +3,6 @@ Begin Window wndMain
    BackColor       =   &cFFFFFF00
    Backdrop        =   0
    CloseButton     =   True
-   Compatibility   =   ""
    Composite       =   False
    Frame           =   0
    FullScreen      =   False
@@ -11,7 +10,7 @@ Begin Window wndMain
    HasBackColor    =   False
    Height          =   482
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -68,7 +67,7 @@ Begin Window wndMain
       Backdrop        =   200112520
       DoubleBuffer    =   False
       Enabled         =   True
-      EraseBackground =   True
+      EraseBackground =   "True"
       Height          =   52
       HelpTag         =   ""
       Index           =   -2147483648
@@ -92,7 +91,7 @@ Begin Window wndMain
    Begin PushButton btnSaveManifest
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Save Manifest"
       Default         =   False
@@ -176,7 +175,7 @@ Begin Window wndMain
          Backdrop        =   0
          DoubleBuffer    =   False
          Enabled         =   True
-         EraseBackground =   True
+         EraseBackground =   "True"
          Height          =   100
          HelpTag         =   ""
          Index           =   -2147483648
@@ -203,6 +202,7 @@ Begin Window wndMain
       Enabled         =   True
       Height          =   20
       HelpTag         =   ""
+      Indeterminate   =   False
       Index           =   -2147483648
       InitialParent   =   ""
       Left            =   108
@@ -215,9 +215,10 @@ Begin Window wndMain
       Scope           =   0
       TabIndex        =   4
       TabPanelIndex   =   0
+      TabStop         =   True
       Top             =   442
       Transparent     =   True
-      Value           =   0
+      Value           =   0.0
       Visible         =   False
       Width           =   325
    End
@@ -259,7 +260,7 @@ Begin Window wndMain
    Begin PushButton btnSetXPlaneFolder
       AutoDeactivate  =   True
       Bold            =   False
-      ButtonStyle     =   "0"
+      ButtonStyle     =   0
       Cancel          =   False
       Caption         =   "Set…"
       Default         =   False
@@ -356,7 +357,7 @@ End
 
 	#tag Method, Flags = &h0
 		Sub displayXPlaneFolder()
-		  txtXplaneFolder.text = App.pXPlaneFolder.absolutePath
+		  txtXplaneFolder.text = App.pXPlaneFolder.nativePath
 		End Sub
 	#tag EndMethod
 

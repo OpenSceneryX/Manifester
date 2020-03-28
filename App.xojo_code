@@ -43,7 +43,7 @@ Inherits Application
 		  end if
 		  
 		  pXPlaneFolder = xPlaneFolder
-		  pPreferences.value("XPlanePath") = pXPlaneFolder.absolutePath
+		  pPreferences.value("XPlanePath") = pXPlaneFolder.nativePath
 		  
 		  return true
 		End Function
@@ -74,6 +74,12 @@ Inherits Application
 	#tag Constant, Name = kFileQuitShortcut, Type = String, Dynamic = False, Default = \"", Scope = Public
 		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"Cmd+Q"
 		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"Ctrl+Q"
+	#tag EndConstant
+
+	#tag Constant, Name = kPathSeparator, Type = String, Dynamic = False, Default = \"", Scope = Public
+		#Tag Instance, Platform = Mac OS, Language = Default, Definition  = \"/"
+		#Tag Instance, Platform = Windows, Language = Default, Definition  = \"\\"
+		#Tag Instance, Platform = Linux, Language = Default, Definition  = \"/"
 	#tag EndConstant
 
 	#tag Constant, Name = kServerURL, Type = String, Dynamic = False, Default = \"127.0.0.1/opensceneryx", Scope = Public
